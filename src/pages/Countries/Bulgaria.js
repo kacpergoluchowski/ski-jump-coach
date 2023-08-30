@@ -1,11 +1,13 @@
 import React, { useEffect, useState }  from "react";
 import Hero from "../../components/Hero";
 import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
 import CountryChangeNavbar from "../../components/CountryNavbar";
+import Footer from "../../components/Footer";
 import Staff from "../../components/Staff";
 import Competitors from "../../components/Competitors";
 import HillTraining from "../../components/HillTraining";
+import Camps from "../../components/Camps";
+import Loader from "../../components/Loader";
 
 const Bulgaria = (props) => {
     const [countriesData, setCountriesData] = useState(null);

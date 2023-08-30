@@ -4,10 +4,10 @@ import Navbar from "../../components/Navbar";
 import CountryChangeNavbar from "../../components/CountryNavbar";
 import Footer from "../../components/Footer";
 import Staff from "../../components/Staff";
-import Loader from "../../components/Loader";
 import Competitors from "../../components/Competitors";
 import HillTraining from "../../components/HillTraining";
 import Camps from "../../components/Camps";
+import Loader from "../../components/Loader";
 
 const Polska = (props) => {
     const [countriesData, setCountriesData] = useState(null);
