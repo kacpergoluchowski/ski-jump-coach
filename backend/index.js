@@ -1,9 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { MongoClient } = require('mongodb');
-const url = 'mongodb+srv://kgoluchowski:mongo-test@mongo-test.tn7bv6k.mongodb.net/?retryWrites=true&w=majority';
+const url = process.env.MONGO_URL;
 const bp = require('body-parser');
-
 
 const app = express();
 const port = 3737;
