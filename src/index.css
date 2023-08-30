@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +7,871 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+* {
+  font-family: Oswald;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.hero {
+  background: url('./images/hero-main-bg.png');
+  height: 100vh;
+}
+
+.navbar {
+  width: 100vw;
+  height: 8vh;
+  background-color: rgba(255,255,255, 0.6);
+  position: fixed;
+  top: 3vh;
+  padding: 0 2vw;
+  display: flex;
+  align-items: center;
+  color: white;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+.navbar > div {
+  display: flex;
+  align-items: center;
+}
+
+.navbar > nav {
+  display: flex;
+  box-sizing: border-box;
+  margin-right: 4vw;
+  width: 30%;
+  justify-content: space-around;
+  font-size: 150%;
+}
+
+.navbar img {
+  height: 70px;
+  margin-right: .5vw;
+}
+
+.logo-page {
+  display: flex;
+  align-items: center;
+}
+
+.logo-page img {
+  height: 80px;
+}
+
+.tutorial-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3vh 0;
+  height: 75vh;
+}
+
+.book-tuto {
+  width: 30%;
+}
+
+.tutorial-wrapper > div {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.tutorial-wrapper > div h1 {
+  font-size: 320%;
+  font-weight: bold;
+  margin: 2vh 0 2vh 0;
+} 
+
+.tuto-section p {
+  font-size: 200%;
+  width: 85%;
+  line-height: 6vh;
+  text-align: justify;
+}
+
+.tuto-section button {
+  width: 15vw;
+  height: 5vh;
+  font-size: 170%;
+  border-radius: 50px;
+  cursor: pointer;
+  background: linear-gradient(to right, #A1C4FD, #C2E9FB);
+  color: white;
+  border: none;
+  margin-top: 2vh;
+}
+
+.tuto-section {
+  margin-left: 2.1vw;
+}
+
+.wrapper-t {
+  width: 70%;
+  margin-top: 4vh;
+}
+
+#star-1 {
+  position: absolute;
+  top: 105vh;
+  left: 4vw;
+  width: 8%;
+}
+#star-2 {
+  position: absolute;
+  top: 105vh;
+  right: 4vw;
+  width: 8%;
+}
+#star-3 {
+  position: absolute;
+  top: 155vh;
+  left: 4vw;
+  width: 8%;
+}
+#star-4 {
+  position: absolute;
+  top: 155vh;
+  right: 4vw;
+  width: 8%;
+}
+
+.rep-wrapper {
+  position: relative;
+  margin-left: 31%;
+}
+
+.rep--bg-wrapper {
+  position: absolute;
+  top: 0;
+  left: -45%;
+  background: linear-gradient(90deg, #A1C4FD 60%, rgba(217, 217, 217, 0.00) 100%);
+  width: 100%;
+  height: 100%;
+}
+
+.rep--content-wrapper {
+  width: 50%;
+  height: 100%;
+  color: white;
+  padding: 13vh 5vw;
+  font-size: 250%;
+}
+
+.rep--content-wrapper p {
+  line-height: 9vh;
+  text-align: justify;
+  margin: 4vh 0;
+}
+
+.rep--content-wrapper button {
+  width: 20vw;
+  height: 6vh;
+  background: white;
+  border-radius: 30px;
+  border: none;
+  font-size: 90%;
+  cursor: pointer;
+}
+
+.comp-wrapper {
+  display: flex;
+  position: relative;
+  margin-top: -1vh;
+}
+
+.comp--bg-wrapper {
+  position: absolute;
+  top: 0;
+  background: linear-gradient(90deg, rgba(217, 217, 217, 0.00) 0%, #A1C4FD 55%);
+  width: 100%;
+  height: 100%;
+}
+
+.comp--content-wrapper {
+  width: 40%;
+  height: 100%;
+  color: white;
+  padding: 20vh 5vw;
+  font-size: 250%;
+  margin-left: 50%;
+}
+
+.comp--content-wrapper p {
+  line-height: 9vh;
+  margin: 4vh 0;
+}
+
+.comp--content-wrapper button {
+  width: 20vw;
+  height: 6vh;
+  background: white;
+  border-radius: 30px;
+  border: none;
+  font-size: 90%;
+}
+
+.work-wrapper {
+  position: relative;
+  margin-left: 35%;
+}
+
+.work--bg-wrapper {
+  position: absolute;
+  top: 0;
+  left: -55%;
+  background: linear-gradient(90deg, #A1C4FD 60%, rgba(217, 217, 217, 0.00) 100%);
+  width: 100%;
+  height: 100%;
+}
+
+.work--content-wrapper {
+  width: 50%;
+  height: 100%;
+  color: white;
+  padding: 13vh 5vw;
+  font-size: 250%;
+}
+
+.work--content-wrapper p {
+  line-height: 9vh;
+  text-align: justify;
+  margin: 4vh 0;
+}
+
+.work--content-wrapper button {
+  width: 20vw;
+  height: 6vh;
+  background: white;
+  border-radius: 30px;
+  border: none;
+  font-size: 90%;
+}
+
+.hill-wrapper {
+  display: flex;
+  position: relative;
+  margin-top: -1vh;
+}
+
+.hill--bg-wrapper {
+  position: absolute;
+  top: 0;
+  background: linear-gradient(90deg, rgba(217, 217, 217, 0.00) 0%, #A1C4FD 55%);
+  width: 100%;
+  height: 100%;
+}
+
+.hill--content-wrapper {
+  width: 40%;
+  height: 100%;
+  color: white;
+  padding: 20vh 5vw;
+  font-size: 250%;
+  margin-left: 50%;
+}
+
+.hill--content-wrapper p {
+  line-height: 9vh;
+  margin: 4vh 0;
+}
+
+.hill--content-wrapper button {
+  width: 20vw;
+  height: 6vh;
+  background: white;
+  border-radius: 30px;
+  border: none;
+  font-size: 90%;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5vh 0;
+}
+
+.footer-div {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  font-size: 200%;
+  margin: 5vh 0;
+}
+
+.footer-div {
+  text-align: center;
+}
+
+.footer-div p {
+  display: flex;
+  align-items: center;
+}
+
+.footer-div p img {
+  width: 50px;
+}
+
+.hero-countries {
+  background: url('./images/skocznia_2015-01-17_04-56-58\ 1.png');
+  height: 80vh;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 600%;
+}
+
+.hero-countries::before {
+  content: "REPREZENTACJE";
+  color: white;
+}
+
+.countries-data > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.country-card {
+  margin: 4vh 0;
+  width: 47vw;
+  height: 32vh;
+  background-color: #A1C4FD;
+  display: flex;
+  font-size: 200%;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.country-card > img {
+  width: 50%;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.country-card > div {
+  margin-left: 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  gap: 5px;
+}
+
+.country-card button {
+  width: 90%;
+  height: 5vh;
+  border-radius: 30px;
+  background-color: white;
+  border: none;
+  font-size: 80%;
+  cursor: pointer;
+}
+
+.country-card button:hover {
+  background-color: rgb(180, 180, 180);
+}
+
+.country-card p img {
+  width: 10%;
+}
+
+.country-card p {
+  display: flex;
+  align-items: center;
+  gap: 2%;
+}
+
+.country-hero {
+  width: 100vw;
+  height: 80vh;
+  position: relative;
+}
+
+.country-hero img {
+  height: 80vh;
+  width: 100vw;
+}
+
+.country-hero h1 {
+  background-color: rgba(255,255,255,0.8);
+  position: absolute;
+  top: 40%;
+  left: 38%;
+  font-size: 600%;
+  padding: 0 5vw;
+  border-radius: 30px;
+}
+
+.country-navbar {
+  background-color: white;
+  color: black;
+}
+
+.country-navbar a {
+  color: black;
+}
+
+.country-change-navbar {
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2vh 0;
+}
+
+.country-change-navbar button {
+  width: 20vw;
+  height: 8vh;
+  font-size: 250%;
+  border-radius: 30px;
+  border: none;
+  background-color: #A1C4FD;
+  color: white;
+  cursor: pointer;
+}
+
+.country-change-footer {
+  background-color: #A1C4FD;
+  color: white;
+}
+
+.staff {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.staff-card  {
+  margin: 1vh 0;
+  display: flex;
+  width: 50%;
+}
+
+.staff-card > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 2vw;
+  padding: 3vh 0;
+}
+
+.staff-person-image {
+  width: 25%;
+  object-fit: contain;
+  height: 25vh;
+}
+
+.staff button {
+  background-color: #A1C4FD;
+  color: white;
+  border: none;
+  font-size: 200%;
+  width: 20%;
+  margin: 4vh 0;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.staff h1 img {
+  width: 10%;
+}
+
+.competitors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.competitor-card {
+  margin: 2vh 0;
+  display: flex;
+  width: 35%;
+  gap: 3vw;
+}
+
+.competitor-card img {
+  width: 35%;
+}
+
+.competitor-card > div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.ski-jumping-training {
+  background: url('./images/ski-jump-train.webp');
+  background-size: cover;
+  background-position: center;
+  height: 30vh;
+  width: 80vw;
+  color: white;
+  font-size: 350%;
+  position: relative;
+  filter: brightness(60%);
+  transition: all .5s;
+  cursor: pointer;
+}
+
+.ski-jumping-training::before {
+  content: "TRENING NA SKOCZNI";
+  position: absolute;
+  bottom: 2vh;
+  left: 2vw;
+}
+
+.ski-jumping-training:hover {
+  filter: brightness(100%);
+}
+
+.training-camp {
+  background: url('./images/camp.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 30vh;
+  width: 80vw;
+  position: relative;
+  color: white;
+  font-size: 350%;
+  filter: brightness(60%);
+  transition: all .5s;
+  cursor: pointer;
+}
+
+.training-camp::before {
+  content: "OBOZY TRENINGOWE";
+  position: absolute;
+  bottom: 2vh;
+  left: 2vw;
+}
+
+.training-camp:hover {
+  filter: brightness(100%);
+}
+
+.training-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 80vh;
+}
+
+.hill-training-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.competitor-card button {
+  background-color: #A1C4FD;
+  color: white;
+  border-radius: 30px;
+  border: none;
+  font-size: 200%;
+  cursor: pointer;
+  width: 20vw;
+}
+
+.competitor-card button:hover {
+  background-color: #65a0ff;
+}
+
+.training-announcement {
+  background-color: #65a0ff;;
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  padding: 4vh 4vw;
+  box-sizing: border-box;
+  color: white;
+  border-radius: 30px;
+}
+
+.training-announcement h1 {
+  margin: 5vh 0;
+}
+
+.training-announcement img {
+  width: 15%;
+}
+
+.szczyrk-camp {
+  background: url('./images/szczyrk.jpg');
+  height: 45vh;
+  width: 80vw;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  position: relative;
+  font-size: 200%;
+}
+
+.planica-camp {
+  background: url('./images/planica.jpg');
+  height: 45vh;
+  width: 80vw;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  position: relative;
+  font-size: 200%;
+  position: relative;
+}
+
+.hinterzarten-camp {
+  background: url('./images/hinterzarten.jpg');
+  height: 45vh;
+  width: 80vw;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  position: relative;
+  font-size: 200%;
+  position: relative;
+}
+
+.camp-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 150vh;
+  justify-content: space-around;
+}
+
+.camp-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 5vh 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.camp-info button {
+  background-color: #65a0ff;
+  color: white;
+  font-size: 90%;
+  width: 20vw;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.camp-info button:hover {
+  background-color: #A1C4FD;
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color:#65a0ff;
+  z-index: 1000000;
+}
+
+.loader::after {
+  content: '';
+  width: 75px;
+  height: 75px;
+  border: 15px solid #dddddd;
+  border-top-color: #A1C4FD;
+  border-radius: 50%;
+  animation: loading 0.75s ease infinite;
+}
+
+.loader-content {
+  z-index: 1000001;
+  color: white;
+}
+
+@keyframes loading {
+  from { transform: rotate(0turn) }
+  to { transform: rotate(1turn) }
+}
+
+.hero-competitions {
+  background: url('./images/saporro\ 1.png');
+  height: 80vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 600%;
+  
+}
+
+.hero-competitions::before {
+  content: "ZAWODY";
+  color: white;
+}
+
+.sports-events {
+  height: 130vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+  font-size: 200%;
+}
+
+.event-info {
+  position: absolute;
+  bottom: 10%;
+  left: 2%;
+  width: 30%;
+}
+
+.world-cup-section {
+  position: relative;
+  background: url('./images/world-cup.jpg');
+  height: 40vh;
+  background-repeat: no-repeat;
+  width: 80%;
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur;
+  filter: brightness(60%);
+  transition: all .5s;
+  cursor: pointer;
+}
+
+.world-cup-section:hover {
+  filter: brightness(100%);
+}
+
+.continental-cup-section {
+  position: relative;
+  background: url('./images/continental-cup.png');
+  height: 40vh;
+  background-repeat: no-repeat;
+  width: 80%;
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur;
+  filter: brightness(60%);
+  transition: all .5s;
+  cursor: pointer;
+}
+
+.continental-cup-section:hover {
+  filter: brightness(100%);
+}
+
+.fis-cup-section {
+  position: relative;
+  background: url('./images/fis-cup.png');
+  height: 40vh;
+  background-repeat: no-repeat;
+  width: 80%;
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur;
+  filter: brightness(60%);
+  transition: all .5s;
+  cursor: pointer;
+}
+
+.fis-cup-section:hover {
+  filter: brightness(100%);
+}
+
+.world-cup-competitions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.next-competition {
+  background: url('./images/kuusamo.jpg');
+  height: 40vh;
+  width: 80%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  font-size: 130%;
+  color: white;
+}
+
+.next-competition button {
+  background-color: #65a0ff;
+  width: 15vw;
+  height: 5vh;
+  font-size: 120%;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.reporting-competitors-section {
+  min-height: 20vh;
+  padding: 5vh 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.reporting-competitors-section select {
+  width: 20vw;
+  height: 7vh;
+  font-size: 150%;
+  text-align: center;
+  border-radius: 30px;
+}
+
+.reporting-competitors-section button {
+  background-color: #65a0ff;
+  height: 7vh;
+  font-size: 150%;
+  margin-left: 1vw;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  padding: 0 2vw;
+  cursor: pointer;
+}
+
+.reporting-competitors-section button:hover {
+  background-color: #A1C4FD;
 }
