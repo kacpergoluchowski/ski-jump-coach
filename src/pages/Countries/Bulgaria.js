@@ -16,11 +16,12 @@ const Bulgaria = (props) => {
     const [competitorsData, setCompetitorsData] = useState(null);
     const [trainingSectDisplay, setTrainingSectDisplay] = useState(false);
     const [hillTrainingSectDisplay, setHillTrainingSectDisplay] = useState(false);
+    const [campSectDisplay, setCampSectDisplay] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch('http://localhost:3737/getFlag', {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}getFlag`, {
                     method: "POST",
                     body: JSON.stringify({ query: props.country }),
                     headers: {
@@ -45,7 +46,7 @@ const Bulgaria = (props) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch('http://localhost:3737/getStaff', {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}getStaff`, {
                     method: "POST",
                     body: JSON.stringify({ country: props.country }),
                     headers: {
@@ -71,7 +72,7 @@ const Bulgaria = (props) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch('http://localhost:3737/getCompetitors', {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}getCompetitors`, {
                     method: "POST",
                     body: JSON.stringify({ country: props.country }),
                     headers: {
@@ -94,13 +95,16 @@ const Bulgaria = (props) => {
         fetchData();
     }, [competitorsSectDisplay])
 
+    if(!countriesData) 
+        return <Loader/>
+        
     return (
         <div>
             {countriesData && (
                 <div>
                     <Navbar navClassName = 'navbar country-navbar'/>
                     <Hero heroClassName = 'country-hero' image = {countriesData.flag} country = {countriesData.country}/>
-                    {changeSectDisplay && (
+                    { changeSectDisplay && (
                         <div className="country-change-navbar">
                             <button onClick={() => {setChangeSectDisplay(false); setStaffSectDisplay(true)}}> SZTAB </button>
                             <button onClick={() => {setChangeSectDisplay(false); setCompetitorsSectDisplay(true)}}> ZAWODNICY </button>
@@ -108,33 +112,24 @@ const Bulgaria = (props) => {
                             <button onClick={() => {setChangeSectDisplay(false); setTrainingSectDisplay(true)}}> TRENING </button>
                         </div>
                     )}
-                    {
-                        staffSectDisplay && (
-                            <Staff data = {staffData}/>
-                        )
-                    }
-                    {
-                        competitorsSectDisplay && (
-                            <Competitors data = {competitorsData}/>
-                        )
-                    }
-                    {
-                        trainingSectDisplay && (
-                            <div className="training-section">
-                                <div className="ski-jumping-training" onClick={() => {setTrainingSectDisplay(false); setHillTrainingSectDisplay(true)}}>
-                
-                                </div>
-                                <div className="training-camp"> 
-                                    
-                                </div>
-                            </div>
-                            
-                        )
-                    }
-                    {
-                        hillTrainingSectDisplay && (
-                            <HillTraining data = {competitorsData} country = {props.country}/>
-                        )
+                    { staffSectDisplay && (
+                        <Staff data = {staffData}/>
+                    )}
+                    { competitorsSectDisplay && (
+                        <Competitors data = {competitorsData}/>
+                    )}
+                    { trainingSectDisplay && (
+                        <div className="training-section">
+                            <div className="ski-jumping-training" onClick={() => {setTrainingSectDisplay(false); setHillTrainingSectDisplay(true)}}> </div>
+                            <div className="training-camp" onClick={() => {setTrainingSectDisplay(false); setCampSectDisplay(true)}}> </div>
+                        </div>
+                    )}
+                    { hillTrainingSectDisplay && (
+                        <HillTraining data = {competitorsData} country = {props.country}/>
+                    )}
+                    { campSectDisplay && (
+                        <Camps country = {props.country}/>
+                    )
                     }
 
                     <Footer footerClassName = 'country-change-footer'/>

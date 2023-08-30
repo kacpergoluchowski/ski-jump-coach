@@ -4,10 +4,6 @@ import Person from '../images/man (9).png';
 import { Link } from "react-router-dom";
 
 export default function Staff(props) {
-    useEffect(() => {
-        console.log(props.data.headCoach)
-    })
-
     return (
         <div className="staff">
             <div className="staff-card">

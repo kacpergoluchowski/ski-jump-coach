@@ -23,7 +23,7 @@ const Polska = (props) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch('http://localhost:3737/getFlag', {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}getFlag`, {
                     method: "POST",
                     body: JSON.stringify({ query: props.country }),
                     headers: {
@@ -48,7 +48,7 @@ const Polska = (props) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch('http://localhost:3737/getStaff', {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}getStaff`, {
                     method: "POST",
                     body: JSON.stringify({ country: props.country }),
                     headers: {
@@ -74,7 +74,7 @@ const Polska = (props) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch('http://localhost:3737/getCompetitors', {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}getCompetitors`, {
                     method: "POST",
                     body: JSON.stringify({ country: props.country }),
                     headers: {
