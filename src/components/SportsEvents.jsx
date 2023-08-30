@@ -65,7 +65,7 @@ function ReportCompetitors(props) {
     async function fetchData(country) {
         try {
             setLoaderDisplay(true);
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/getCompetitors`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}getCompetitors`, {
                 method: "POST",
                 body: JSON.stringify({ country: country }),
                 headers: {
@@ -110,7 +110,7 @@ function ReportCompetitors(props) {
 
 function Competitors(props) {
     async function reportCompetitor(name, surname, skill, country) {
-        await fetch(`${process.env.REACT_APP_BACKEND_URL}/reportCompetitor`, {
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}reportCompetitor`, {
             method: "POST",
             body: JSON.stringify({name: name, surname: surname, country: country, skill: skill}),
             headers: {

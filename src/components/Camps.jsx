@@ -83,7 +83,7 @@ function RenderCompetitors(props) {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/getCompetitors`, {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}getCompetitors`, {
                     method: "POST",
                     body: JSON.stringify({ country: props.country }),
                     headers: {
@@ -158,7 +158,7 @@ async function sendCompetitorToCamp(n, s, p, c, d, skill) {
     let experience = 0;
     for(let i = 0; i < 21; i++) 
         experience += generateDistance(skill);
-    await fetch(`${process.env.REACT_APP_BACKEND_URL}/sendCompetitorToCamp`, {
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}sendCompetitorToCamp`, {
         method: "POST",
         body: JSON.stringify({name:n, surname: s, place: p, country: c, date: d, experience: experience}),
         headers: {

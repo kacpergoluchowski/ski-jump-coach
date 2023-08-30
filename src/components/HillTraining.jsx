@@ -32,7 +32,7 @@ function CompetitorsCard(props) {
 function training(name, surname, country, skill) {
     const experience = Math.floor(generateDistance(skill));
     async function sendResultToBackend() {
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/sendCompetitorToTraining`, {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}sendCompetitorToTraining`, {
             method: "POST",
             body: JSON.stringify({country: country, name:name, surname:surname, experience: experience}),
             headers: {
