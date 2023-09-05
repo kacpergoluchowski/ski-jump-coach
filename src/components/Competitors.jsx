@@ -10,6 +10,7 @@ function CompetitorCard(props) {
                 <h1> {props.name} {props.surname} </h1>
                 <h2> Wiek: {props.age} </h2>
                 <h2> Umiejętności: {props.skill}  /  100 </h2>
+                <button> OSIĄGNIĘCIA </button>
             </div>
         </div>
     )
@@ -17,12 +18,14 @@ function CompetitorCard(props) {
 
 export default function Competitors(props) {
     return (
-        <div className="competitors">
+        <div>
+            <div className="competitors"> 
             {
                 props.data.map(item => {
                     return <CompetitorCard name = {item.name} surname = {item.surname} age = {item.age} skill = {item.skill}/>
                 })
             }
+            </div>
         </div>
     )
 }

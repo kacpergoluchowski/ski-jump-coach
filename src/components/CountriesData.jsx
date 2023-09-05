@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import '../index.css';
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
-import star from '../images/star (1).png'
+import Star from '../images/star (1).png'
 import Loader from "./Loader";
 
 export default function CountriesData() {
@@ -10,15 +10,13 @@ export default function CountriesData() {
 
     useEffect(() => {
         async function fetchData() { 
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}getCountries`); 
+            const response = await fetch(`http://127.0.0.1:3737/getCountries`); 
             const jsonData = await response.json();
             setCountriesData(jsonData);
         }
 
         fetchData();
     }, []);
-
-    console.log("Render:", countriesData); 
 
     if(!countriesData) 
         return <Loader/>
@@ -34,7 +32,7 @@ export default function CountriesData() {
                     </div>
                 )}
             </div>
-            <Footer footerClassName = 'country-change-footer'/>
+            <Footer footerClassName = 'dark-footer'/>
         </>
         
     )
@@ -47,7 +45,7 @@ function CountryCard(props) {;
             <div>
                 <h1> {props.country} </h1>
                 <p> Stolica: {props.capital} </p>
-                <p> Ocena: {props.rating} <img src = {star}/></p>
+                <p> Ocena: {props.rating} <img src = {Star}/></p>
                 <Link to = {props.country}> <button> Przejdź </button> </Link>
             </div>
         </div>

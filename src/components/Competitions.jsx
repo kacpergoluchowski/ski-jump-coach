@@ -11,7 +11,8 @@ export default function Competitions() {
                 <div className="comp--content-wrapper"> 
                     <h1> ZAWODY </h1>
                     <p> W sekcji 'Zawody' przeniesiesz się na arenę emocjonujących zmagań skoków narciarskich. To tutaj znajdziesz najświeższe informacje o zbliżających się turniejach, wynikiach
-                        ostatnich zawodów oraz kulisy rywalizacji skoczków z całego świata.</p>
+                        ostatnich zawodów oraz kulisy rywalizacji skoczków z całego świata.
+                    </p>
                     <Link to = '/competitions'> <button> ZAWODY </button> </Link>
                 </div>
             </div>

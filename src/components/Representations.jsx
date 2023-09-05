@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export default function Representations() {
     return (
         <div className="rep-wrapper">
-            <img src = {Image}/>
+            <img src = {Image} className="rep-wrapper-image"/>
             <div className="rep--bg-wrapper">
                 <div className="rep--content-wrapper"> 
                     <h1> REPREZENTACJE </h1>

@@ -11,7 +11,7 @@ export default function Competitions() {
             <Hero heroClassName = 'hero-competitions'/>
             <Navbar/>
             <SportsEvents/>
-            <Footer footerClassName = 'country-change-footer'/>
+            <Footer footerClassName = 'dark-footer'/>
         </div>
     )
 }

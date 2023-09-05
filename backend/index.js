@@ -2,270 +2,327 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { MongoClient } = require('mongodb');
-const url = process.env.MONGO_URL;
-const bp = require('body-parser');
+const bodyParser = require('body-parser');
 
 const app = express();
-const port = 3737;
+const port = process.env.PORT || 3737;
+const mongoURL = process.env.MONGO_URL;
 
 app.use(cors());
-app.use(bp.json());
-app.use(bp.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(port, () => {
-    console.log("App started!");
+    console.log("App started on port:", port);
 });
 
 app.get('/getCountries', async (req, res) => {
     try {
-        const data = await showAllCountries();
-        console.log(data);
-        res.json(data);
+        const countryData = await getAllCountries();
+        res.json(countryData);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
-async function showAllCountries() {
-    const client = new MongoClient(url); 
+async function getAllCountries() {
+    const mongoClient = new MongoClient(mongoURL);
 
     try {
-        await client.connect(); 
-        const database = client.db("ski-jump-coach");
-        const countries = database.collection("countries");
+        await mongoClient.connect();
+        const db = mongoClient.db("ski-jump-coach");
+        const countriesCollection = db.collection("countries");
 
-        const documents = await countries.find({}).toArray(); 
+        const documents = await countriesCollection.find({}).toArray();
         return documents;
-
     } finally {
-        await client.close(); 
+        await mongoClient.close();
     }
 }
 
 app.post('/getFlag', async (req, res) => {
-    const client = new MongoClient(url);
+    const mongoClient = new MongoClient(mongoURL);
 
     try {
-        await client.connect();
-        const database = client.db("ski-jump-coach");
-        const countries = database.collection("countries");
+        await mongoClient.connect();
+        const db = mongoClient.db("ski-jump-coach");
+        const countriesCollection = db.collection("countries");
 
-        const query = { country: req.body.query};
-        const country = await countries.findOne(query);
+        const query = { country: req.body.query };
+        const country = await countriesCollection.findOne(query);
         res.json(country);
+    } catch(err) {
+        console.log("Error: ", err);
+    } finally {
+        await mongoClient.close();
     }
-    catch(err) {
-        console.log("Błąd: ", err);
-    }
-    finally {
-        await client.close();
-    }
-})
-
-showAllCountries().catch(console.dir);
+});
 
 app.post('/getStaff', async (req, res) => {
-    const client = new MongoClient(url);
+    const mongoClient = new MongoClient(mongoURL);
 
     try {
-        await client.connect();
-        const database = client.db('ski-jump-coach');
-        const countriesData = database.collection('countries-data');
+        await mongoClient.connect();
+        const db = mongoClient.db('ski-jump-coach');
+        const countriesDataCollection = db.collection('countries-data');
 
         const query = { country: req.body.country };
-        const data = await countriesData.findOne(query);
+        const data = await countriesDataCollection.findOne(query);
         res.json(data);
+    } catch(err) {
+        console.log("Error:", err);
+    } finally {
+        await mongoClient.close();
     }
-    catch(err) {
-        console.log("Błąd", err)
-}})
+});
 
 app.post('/getCompetitors', async (req, res) => {
-    const client = new MongoClient(url);
+    const mongoClient = new MongoClient(mongoURL);
 
     try {
-        const clusterConnect = `${req.body.country}-ski-jumpers`
-        await client.connect();
-        const database = client.db('ski-jump-coach');
-        const skiJumpers = database.collection(clusterConnect);
-        
-        const documents = await skiJumpers.find({}).toArray(); 
+        const clusterConnect = `${req.body.country}-ski-jumpers`;
+        await mongoClient.connect();
+        const db = mongoClient.db('ski-jump-coach');
+        const skiJumpersCollection = db.collection(clusterConnect);
+
+        const documents = await skiJumpersCollection.find({}).toArray(); 
         res.json(documents);
+    } catch(err) {
+        console.log("An error occurred:", err);
+    } finally {
+        mongoClient.close();
     }
-    catch(err) {
-        console.log("Wystąpił błąd: ", err);
-    }
-    finally {
-        client.close();
-    }
-})
+});
 
 app.post('/sendCompetitorToTraining', async (req, res) => {
-    const client = new MongoClient(url);
+    const mongoClient = new MongoClient(mongoURL);
+    
     try {
-        const clusterConnect = `${req.body.country}-ski-jumpers`;
+        let clusterConnect = `${req.body.country}-ski-jumpers`;
+        await mongoClient.connect();
+        const db = mongoClient.db('ski-jump-coach');
+        const skiJumpersCollection = db.collection(clusterConnect);
 
-        const database = client.db('ski-jump-coach')
-        const skiJumpers = database.collection(clusterConnect)
-    
-        const query = { name: req.body.name, surname: req.body.surname };
+        let query = { name: req.body.name, surname: req.body.surname };
         const options = { upsert: true };
-        const skiJumper = await skiJumpers.findOne(query);
+        const skiJumper = await skiJumpersCollection.findOne(query);
         
-        let newExperience = skiJumper.experience + req.body.experience;
-        if(newExperience>500) {
-            var newSkill = skiJumper.skill + 1;
-            newExperience = newExperience - 500;
-        }
-        else   
-            var newSkill = skiJumper.skill;
-
-        const doc = {
-            $set: {
-                experience: newExperience,
-                skill: newSkill
-            }
-        }
-
-        const result = await skiJumpers.updateOne(query, doc, options)
-        console.log("Dokument zeedytowany!", result.matchedCount);
-    }
-    catch(err) {
-        console.log("Błąd: ", err);
-    }
-    finally {
-        client.close();
-    }
+        if(skiJumper.jumps < 3) {
+            let newExperience = skiJumper.experience + req.body.experience;
+            let newSkill = skiJumper.skill;
     
-})
+            if (newExperience > 500) {
+                newSkill++;
+                newExperience -= 500;
+            }
+    
+            const doc = {
+                $set: {
+                    experience: newExperience,
+                    skill: newSkill,
+                    jumps: skiJumper.jumps + 1
+                }
+            }
+    
+            let result = await skiJumpersCollection.updateOne(query, doc, options);
+            console.log("Document updated!", result.matchedCount);
+    
+            clusterConnect = `${req.body.country}-budget`;
+            const budgetCollection = db.collection(clusterConnect);
+    
+            query = { type: 'accBalance' };
+            const budget = await budgetCollection.findOne(query)
+    
+            const newBudget = {
+                $set: {
+                    accBalance: budget.accBalance - 1000
+                }
+            }
+    
+            const transition = {
+                type: 'expenditure',
+                sum: 1000,
+                desc: `trening (${skiJumper.name} ${skiJumper.surname})`
+            }
+    
+            result = await budgetCollection.updateOne(query, newBudget, options);
+            result = await budgetCollection.insertOne(transition);
+            console.log("Zmieniono!");
+        }
+        else {
+            console.log("Zawodnik osiągnął już dzienny limit skoków!")
+        }
+        
+    } catch(err) {
+        console.log("Error: ", err);
+    } finally {
+        mongoClient.close();
+    }
+});
 
 app.post('/sendCompetitorToCamp', async (req, res) => {
-    const client = new MongoClient(url);
-    try {
-        const clusterConnect = `${req.body.country}-ski-jumpers`;
+    const mongoClient = new MongoClient(mongoURL);
 
-        const database = client.db('ski-jump-coach');
-        const skiJumpers = database.collection(clusterConnect);
-        const query = {name: req.body.name, surname: req.body.surname};
+    try {
+        let clusterConnect = `${req.body.country}-ski-jumpers`;
+        await mongoClient.connect();
+        const db = mongoClient.db('ski-jump-coach');
+        const skiJumpersCollection = db.collection(clusterConnect);
+
+        let query = { name: req.body.name, surname: req.body.surname };
         const options = { upsert: true };
-        const skiJumper = await skiJumpers.findOne(query);
-        let newExperience = skiJumper.experience = req.body.experience;
+        const skiJumper = await skiJumpersCollection.findOne(query);
+        
+        let newExperience = skiJumper.experience + req.body.experience;
         let newSkill = skiJumper.skill;
-        while(newExperience>500) {
-            newExperience = newExperience - 500;
-            newSkill +=1;
+
+        while (newExperience > 500) {
+            newExperience -= 500;
+            newSkill++;
         }
-        const doc = {
+
+        const date = generateDate(true);
+        let doc = {
             $set: {
                 experience: newExperience,
                 skill: newSkill,
                 status: `7 DNI PRZERWY (${req.body.place})`,
-                endOfStatus: req.body.date
+                endOfStatus: date
             }
         }
 
-        const result = await skiJumpers.updateOne(query, doc, options)
-        console.log("Dokument zeedytowany!", result.matchedCount);
+        let result = await skiJumpersCollection.updateOne(query, doc, options);
+
+        query = { type: 'accBalance' }
+        clusterConnect = `${req.body.country}-budget`;
+        const budgetCountry = db.collection(clusterConnect);
+        const budget = await budgetCountry.findOne(query);
+
+        let cost = null;
+        if(req.body.place == 'Szczyrk')
+            cost = 24000;
+        else if(req.body.place == 'Planica')
+            cost = 29000;
+        else if(req.body.place == 'Hinterzarten')
+            cost = 26000;
+        
+        doc = {
+            $set: {
+                accBalance: budget.accBalance - cost
+            }
+        }
+        
+        result = await budgetCountry.updateOne(query, doc, options)
+
+        const transition = {
+            type: 'expenditure',
+            sum: cost,
+            desc: `obóz treningowy (${skiJumper.name} ${skiJumper.surname})`
+        }
+
+        result = await budgetCountry.insertOne(transition);
+
+        console.log("Document updated!", result.matchedCount);
+    } catch(err) {
+        console.log("Error: ", err);
+    } finally {
+        mongoClient.close();
     }
-    catch(err) {
-        console.log("BLAD: ", err);
-    }
-    finally {
-        client.close();
-    }
-})
+});
 
 app.post('/reportCompetitor', async (req, res) => {
-    const client = new MongoClient(url);
+    const mongoClient = new MongoClient(mongoURL);
+
     try {
-        const database = client.db('ski-jump-coach');
-        const reportedCompetitors = database.collection('reported-competitors');
+        await mongoClient.connect();
+        const db = mongoClient.db('ski-jump-coach');
+        const reportedCompetitorsCollection = db.collection('reported-competitors');
+        
         const doc = {
             name: req.body.name,
             surname: req.body.surname,
             skill: req.body.skill,
             country: req.body.country
-        }
-        const result = await reportedCompetitors.insertOne(doc);
+        };
 
-        console.log("ZAWODNIK ZOSTAŁ ZGŁOSZONY!", result.insertedId);
+        const result = await reportedCompetitorsCollection.insertOne(doc);
+        console.log("Competitor has been reported!", result.insertedId);
 
-        const clusterConnect = `${req.body.country}-ski-jumpers`
-        const skiJumpers = database.collection(clusterConnect);
+        const clusterConnect = `${req.body.country}-ski-jumpers`;
+        const skiJumpersCollection = db.collection(clusterConnect);
         const query = { name: req.body.name, surname: req.body.surname };
         const options = { upsert: true };
 
         const updateDoc = {
             $set: {
-                status: "PUCHAR ŚWIATA (KUUSAMO)",
-                endOfStatus: "30.08.2023"
+                status: "WORLD CUP (LILLEHAMMER)",
+                endOfStatus: "9/18/2023"
             }
         }
 
-        const updatedDoc = await skiJumpers.updateOne(query, updateDoc, options);
-
-        console.log("DANE ZAWODNIKA ZOSTAŁY ZAAKTUALIZOWANE!", updatedDoc.matchedCount);
+        const updatedDoc = await skiJumpersCollection.updateOne(query, updateDoc, options);
+        console.log("Competitor data has been updated!", updatedDoc.matchedCount);
+    } catch(err) {
+        console.log("Error: ", err);
+    } finally {
+        await mongoClient.close();
     }
-    catch(err) {
-        console.log("BŁAD: ", err);
-    }
-    finally {
-        await client.close();
-    }
-   
-})
+});
 
 async function checkStatus() {
-    const client = new MongoClient(url);
+    const mongoClient = new MongoClient(mongoURL);
+
     try {
-        await client.connect();
-        const database = client.db('ski-jump-coach');
-        const countries = ["Austria", "Bułgaria"];
+        await mongoClient.connect();
+        const db = mongoClient.db('ski-jump-coach');
+        const countries = ["Austria", "Bułgaria", "Czechy", "Finlandia", "Japonia", "Kanada", "Kazachstan", "Niemcy", "Norwegia", "Polska", "Słowenia", "Turcja", "Włochy"];
 
         for (let i = 0; i < countries.length; i++) {
             const clusterConnect = `${countries[i]}-ski-jumpers`;
-            const skiJumpers = database.collection(clusterConnect);
-            const documents = await skiJumpers.find({}).toArray();
+            const skiJumpersCollection = db.collection(clusterConnect);
+            const documents = await skiJumpersCollection.find({}).toArray();
             const todayDate = generateDate();
+
             documents.forEach(document => {
-                if(todayDate==document.endOfStatus) 
-                    resetStatus(countries[i], document.name, document.surname)
-                else
-                    console.log("STATUS JEST AKTUALNY")
+                if (todayDate === document.endOfStatus)
+                    resetStatus(countries[i], document.name, document.surname);
             });
         }
     } catch (error) {
-        console.error('Wystąpił błąd:', error);
+        console.error('An error occurred:', error);
     } finally {
-        client.close();
+        mongoClient.close();
     }
 }
 
-setInterval(checkStatus, 60000);
 
-function generateDate() {
+function generateDate(camp) {
     const today = new Date();
     const futureDate = new Date(today);
-    futureDate.setDate(today.getDate());
+    
+    if(camp)
+        futureDate.setDate(today.getDate() + 6);
+    else
+        futureDate.setDate(today.getDate());
 
     const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-    const formattedDate = futureDate.toLocaleDateString('pl-PL', options);
+    const formattedDate = futureDate.toLocaleDateString('en-US', options);
 
     return formattedDate;
 }
 
 async function resetStatus(country, name, surname) {
-    const client = new MongoClient(url);
-    await client.connect();
+    const mongoClient = new MongoClient(mongoURL);
+    
     try {
+        await mongoClient.connect();
+        const db = mongoClient.db('ski-jump-coach');
         const clusterConnect = `${country}-ski-jumpers`;
+        const skiJumpersCollection = db.collection(clusterConnect);
 
-        const database = client.db('ski-jump-coach');
-        const skiJumpers = database.collection(clusterConnect);
-        const query = {name: name, surname: surname};
+        const query = { name: name, surname: surname };
         const options = { upsert: true };
-        const skiJumper = await skiJumpers.findOne(query);
         const doc = {
             $set: {
                 status: 'brak',
@@ -273,13 +330,111 @@ async function resetStatus(country, name, surname) {
             }
         }
 
-        const result = await skiJumpers.updateOne(query, doc, options)
-        console.log("Dokument zeedytowany!", result.matchedCount);
-    }
-    catch(err) {
-        console.log("BLAD: ", err);
-    }
-    finally {
-        client.close();
+        const result = await skiJumpersCollection.updateOne(query, doc, options);
+        console.log("Document updated!", result.matchedCount);
+    } catch(err) {
+        console.log("Error: ", err);
+    } finally {
+        await mongoClient.close();
     }
 }
+
+app.post('/getBudget', async (req, res) => {
+    const mongoClient = new MongoClient(mongoURL);
+
+    try {
+        await mongoClient.connect();
+        const db = mongoClient.db('ski-jump-coach');
+        const clusterConnect = `${req.body.country}-budget`;
+        const budgetCollection = db.collection(clusterConnect);
+
+        const documents = await budgetCollection.find({}).toArray();
+        res.json(documents);
+    }
+    catch(err) {
+        console.log(err);
+    }
+    finally {
+        mongoClient.close();
+    }
+})
+
+async function resetJumps() {
+    const data = new Date();
+    const hour = data.getHours();
+
+    const countries = ["Austria", "Bułgaria", "Czechy", "Finlandia", "Japonia", "Kanada", "Kazachstan", "Niemcy", "Norwegia", "Polska", "Słowenia", "Turcja", "Włochy"];
+
+    const mongoClient = new MongoClient(mongoURL);
+
+    try {
+        await mongoClient.connect();
+        const db = mongoClient.db('ski-jump-coach');
+        for(let i = 0; i < countries.length; i++) {
+            const clusterConnect = `${countries[i]}-ski-jumpers`;
+            const skiJumpers = db.collection(clusterConnect);
+            const documents = await skiJumpers.find({}).toArray();
+            if(hour == 0) {
+                documents.forEach(document => {
+                    const query = { name: document.name, surname: document.surname };
+                    const options = { upsert: true };
+                    const doc = {
+                        $set: {
+                            jumps: 0
+                        }
+                    }
+                    const result = skiJumpers.updateOne(query, doc, options);
+                    console.log('zmieniono', result.matchedCount)
+                });
+            }
+        }
+    }
+    catch(err) {
+        console.log("BŁAD: ", err )
+    }
+    finally {
+        mongoClient.close();
+    }
+}
+
+setInterval(resetJumps, 60000);
+setInterval(checkStatus, 60000);
+
+app.post('/getHills', async (req, res) => {
+    const mongoClient = new MongoClient(mongoURL)
+
+    try {
+        await mongoClient.connect();
+        const db = mongoClient.db('ski-jump-coach')
+        const clusterConnect = `${req.body.country}-hills`
+        const hills = db.collection(clusterConnect);
+        const documents = await hills.find({}).toArray();
+        res.json(documents)
+    }
+    catch(err) {
+        console.log("BŁAD: ", err)
+    }
+})
+
+app.post('/getResults', async (req, res) => {
+    const connectString = `${req.body.party}${req.body.place}${req.body.number}${req.body.year}`;
+    console.log(connectString)
+
+    const mongoClient = new MongoClient(mongoURL)
+
+    try {
+        await mongoClient.connect();
+        const db = mongoClient.db('ski-jump-coach');
+        const results = db.collection('competitions-results');
+        const query = { date: req.body.date };
+        const result = await results.findOne(query);
+
+        res.json(result);
+    }
+    catch(err) {
+        console.log(err);
+    }
+    finally {
+        await mongoClient.close();
+    }
+})

@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap");
+
+html {
+  overflow-x: hidden;
+}
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -18,7 +19,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -27,22 +28,61 @@ a {
   text-decoration: none;
 }
 
-.hero {
-  background: url('./images/hero-main-bg.png');
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #65a0ff;
+  z-index: 1000000;
+}
+
+.loader::after {
+  content: "";
+  width: 75px;
+  height: 75px;
+  border: 15px solid #dddddd;
+  border-top-color: #a1c4fd;
+  border-radius: 50%;
+  animation: loading 0.75s ease infinite;
+}
+
+.loader-content {
+  z-index: 1000001;
+  color: white;
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.hero {
+  background: url("./images/hero-main-bg.png");
+  height: 100vh;
+  background-position: center;
+  object-fit: cover;
 }
 
 .navbar {
   width: 100vw;
   height: 8vh;
-  background-color: rgba(255,255,255, 0.6);
+  background-color: rgba(255, 255, 255, 0.6);
   position: fixed;
   top: 3vh;
   padding: 0 2vw;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   color: white;
-  justify-content: space-between;
   z-index: 100;
 }
 
@@ -55,14 +95,13 @@ a {
   display: flex;
   box-sizing: border-box;
   margin-right: 4vw;
-  width: 30%;
+  width: 35%;
   justify-content: space-around;
   font-size: 150%;
 }
 
-.navbar img {
-  height: 70px;
-  margin-right: .5vw;
+.more {
+  display: none;
 }
 
 .logo-page {
@@ -71,7 +110,8 @@ a {
 }
 
 .logo-page img {
-  height: 80px;
+  height: 70px;
+  margin: 0 0.5vw;
 }
 
 .tutorial-wrapper {
@@ -95,60 +135,58 @@ a {
 .tutorial-wrapper > div h1 {
   font-size: 320%;
   font-weight: bold;
-  margin: 2vh 0 2vh 0;
-} 
+  margin: 2vh 0;
+}
 
-.tuto-section p {
+.tutorial-content p {
   font-size: 200%;
   width: 85%;
   line-height: 6vh;
   text-align: justify;
 }
 
-.tuto-section button {
+.tutorial-content button {
   width: 15vw;
   height: 5vh;
   font-size: 170%;
   border-radius: 50px;
   cursor: pointer;
-  background: linear-gradient(to right, #A1C4FD, #C2E9FB);
+  background: linear-gradient(to right, #a1c4fd, #c2e9fb);
   color: white;
   border: none;
   margin-top: 2vh;
 }
 
-.tuto-section {
-  margin-left: 2.1vw;
-}
-
-.wrapper-t {
+.wrapper-tutorial-content {
   width: 70%;
   margin-top: 4vh;
 }
 
-#star-1 {
-  position: absolute;
-  top: 105vh;
-  left: 4vw;
-  width: 8%;
-}
-#star-2 {
-  position: absolute;
-  top: 105vh;
-  right: 4vw;
-  width: 8%;
-}
-#star-3 {
-  position: absolute;
-  top: 155vh;
-  left: 4vw;
-  width: 8%;
-}
+#star-1,
+#star-2,
+#star-3,
 #star-4 {
   position: absolute;
+  width: 8%;
+}
+
+#star-1 {
+  top: 105vh;
+  right: 4vw;
+}
+
+#star-2 {
+  top: 105vh;
+  left: 4vw;
+}
+#star-3 {
   top: 155vh;
   right: 4vw;
-  width: 8%;
+}
+
+#star-4 {
+  top: 155vh;
+  left: 4vw;
 }
 
 .rep-wrapper {
@@ -160,7 +198,7 @@ a {
   position: absolute;
   top: 0;
   left: -45%;
-  background: linear-gradient(90deg, #A1C4FD 60%, rgba(217, 217, 217, 0.00) 100%);
+  background: linear-gradient(90deg, #a1c4fd 60%, rgba(217, 217, 217, 0) 100%);
   width: 100%;
   height: 100%;
 }
@@ -198,7 +236,7 @@ a {
 .comp--bg-wrapper {
   position: absolute;
   top: 0;
-  background: linear-gradient(90deg, rgba(217, 217, 217, 0.00) 0%, #A1C4FD 55%);
+  background: linear-gradient(90deg, rgba(217, 217, 217, 0) 0%, #a1c4fd 55%);
   width: 100%;
   height: 100%;
 }
@@ -226,21 +264,21 @@ a {
   font-size: 90%;
 }
 
-.work-wrapper {
+.workout-wrapper {
   position: relative;
   margin-left: 35%;
 }
 
-.work--bg-wrapper {
+.workout--bg-wrapper {
   position: absolute;
   top: 0;
   left: -55%;
-  background: linear-gradient(90deg, #A1C4FD 60%, rgba(217, 217, 217, 0.00) 100%);
+  background: linear-gradient(90deg, #a1c4fd 60%, rgba(217, 217, 217, 0) 100%);
   width: 100%;
   height: 100%;
 }
 
-.work--content-wrapper {
+.workout--content-wrapper {
   width: 50%;
   height: 100%;
   color: white;
@@ -248,13 +286,13 @@ a {
   font-size: 250%;
 }
 
-.work--content-wrapper p {
+.workout--content-wrapper p {
   line-height: 9vh;
   text-align: justify;
   margin: 4vh 0;
 }
 
-.work--content-wrapper button {
+.workout--content-wrapper button {
   width: 20vw;
   height: 6vh;
   background: white;
@@ -272,7 +310,7 @@ a {
 .hill--bg-wrapper {
   position: absolute;
   top: 0;
-  background: linear-gradient(90deg, rgba(217, 217, 217, 0.00) 0%, #A1C4FD 55%);
+  background: linear-gradient(90deg, rgba(217, 217, 217, 0) 0%, #a1c4fd 55%);
   width: 100%;
   height: 100%;
 }
@@ -301,36 +339,40 @@ a {
 }
 
 footer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 5vh 0;
-}
-
-.footer-div {
-  width: 100%;
+  background-color: white;
   display: flex;
   justify-content: space-around;
-  font-size: 200%;
-  margin: 5vh 0;
+  padding: 5vh 0;
+  color: black;
 }
 
-.footer-div {
+.dark-footer {
+  background-color: #65a0ff;
+  color: white;
+}
+
+footer > div {
+  width: 33%;
   text-align: center;
+  font-size: 200%;
 }
 
-.footer-div p {
+footer h1 {
+  margin: 3vh 0;
+}
+
+footer h3 {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  margin: 1vh 0;
 }
 
-.footer-div p img {
-  width: 50px;
+footer h3 img {
+  width: 10%;
 }
 
 .hero-countries {
-  background: url('./images/skocznia_2015-01-17_04-56-58\ 1.png');
+  background: url("./images/skocznia_2015-01-17_04-56-58\ 1.png");
   height: 80vh;
   background-position: center;
   display: flex;
@@ -354,7 +396,7 @@ footer {
   margin: 4vh 0;
   width: 47vw;
   height: 32vh;
-  background-color: #A1C4FD;
+  background-color: #a1c4fd;
   display: flex;
   font-size: 200%;
   border-top-right-radius: 30px;
@@ -414,7 +456,7 @@ footer {
 }
 
 .country-hero h1 {
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   position: absolute;
   top: 40%;
   left: 38%;
@@ -446,55 +488,14 @@ footer {
   font-size: 250%;
   border-radius: 30px;
   border: none;
-  background-color: #A1C4FD;
+  background-color: #a1c4fd;
   color: white;
   cursor: pointer;
 }
 
 .country-change-footer {
-  background-color: #A1C4FD;
+  background-color: #a1c4fd;
   color: white;
-}
-
-.staff {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.staff-card  {
-  margin: 1vh 0;
-  display: flex;
-  width: 50%;
-}
-
-.staff-card > div {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin-left: 2vw;
-  padding: 3vh 0;
-}
-
-.staff-person-image {
-  width: 25%;
-  object-fit: contain;
-  height: 25vh;
-}
-
-.staff button {
-  background-color: #A1C4FD;
-  color: white;
-  border: none;
-  font-size: 200%;
-  width: 20%;
-  margin: 4vh 0;
-  cursor: pointer;
-  border-radius: 30px;
-}
-
-.staff h1 img {
-  width: 10%;
 }
 
 .competitors {
@@ -522,7 +523,7 @@ footer {
 }
 
 .ski-jumping-training {
-  background: url('./images/ski-jump-train.webp');
+  background: url("./images/ski-jump-train.webp");
   background-size: cover;
   background-position: center;
   height: 30vh;
@@ -531,7 +532,7 @@ footer {
   font-size: 350%;
   position: relative;
   filter: brightness(60%);
-  transition: all .5s;
+  transition: all 0.5s;
   cursor: pointer;
 }
 
@@ -547,7 +548,7 @@ footer {
 }
 
 .training-camp {
-  background: url('./images/camp.jpg');
+  background: url("./images/camp.jpg");
   background-size: cover;
   background-position: center;
   height: 30vh;
@@ -556,7 +557,7 @@ footer {
   color: white;
   font-size: 350%;
   filter: brightness(60%);
-  transition: all .5s;
+  transition: all 0.5s;
   cursor: pointer;
 }
 
@@ -586,7 +587,7 @@ footer {
 }
 
 .competitor-card button {
-  background-color: #A1C4FD;
+  background-color: #a1c4fd;
   color: white;
   border-radius: 30px;
   border: none;
@@ -600,7 +601,20 @@ footer {
 }
 
 .training-announcement {
-  background-color: #65a0ff;;
+  background-color: #65a0ff;
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  padding: 4vh 4vw;
+  box-sizing: border-box;
+  color: white;
+  border-radius: 30px;
+}
+
+.training-alert {
+  background-color: #ff0000;
   position: fixed;
   top: 25%;
   left: 25%;
@@ -613,15 +627,31 @@ footer {
 }
 
 .training-announcement h1 {
-  margin: 5vh 0;
+  margin: 2vh 0;
+}
+
+.training-alert h1 {
+  margin: 3vh 0;
 }
 
 .training-announcement img {
   width: 15%;
 }
 
+.training-alert img {
+  width: 15%;
+}
+
+.training-alert button {
+  background-color: #fa6d6d;
+}
+
+.training-alert button:hover {
+  background-color: #f74040;
+}
+
 .szczyrk-camp {
-  background: url('./images/szczyrk.jpg');
+  background: url("./images/szczyrk.jpg");
   height: 45vh;
   width: 80vw;
   background-repeat: no-repeat;
@@ -633,7 +663,7 @@ footer {
 }
 
 .planica-camp {
-  background: url('./images/planica.jpg');
+  background: url("./images/planica.jpg");
   height: 45vh;
   width: 80vw;
   background-repeat: no-repeat;
@@ -646,7 +676,7 @@ footer {
 }
 
 .hinterzarten-camp {
-  background: url('./images/hinterzarten.jpg');
+  background: url("./images/hinterzarten.jpg");
   height: 45vh;
   width: 80vw;
   background-repeat: no-repeat;
@@ -689,44 +719,11 @@ footer {
   cursor: pointer;
 }
 .camp-info button:hover {
-  background-color: #A1C4FD;
-}
-
-.loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color:#65a0ff;
-  z-index: 1000000;
-}
-
-.loader::after {
-  content: '';
-  width: 75px;
-  height: 75px;
-  border: 15px solid #dddddd;
-  border-top-color: #A1C4FD;
-  border-radius: 50%;
-  animation: loading 0.75s ease infinite;
-}
-
-.loader-content {
-  z-index: 1000001;
-  color: white;
-}
-
-@keyframes loading {
-  from { transform: rotate(0turn) }
-  to { transform: rotate(1turn) }
+  background-color: #a1c4fd;
 }
 
 .hero-competitions {
-  background: url('./images/saporro\ 1.png');
+  background: url("./images/saporro\ 1.png");
   height: 80vh;
   background-repeat: no-repeat;
   background-position: center;
@@ -735,7 +732,6 @@ footer {
   align-items: center;
   justify-content: center;
   font-size: 600%;
-  
 }
 
 .hero-competitions::before {
@@ -744,33 +740,53 @@ footer {
 }
 
 .sports-events {
-  height: 130vh;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   color: white;
-  font-size: 200%;
 }
 
 .event-info {
   position: absolute;
   bottom: 10%;
   left: 2%;
-  width: 30%;
+  width: 50%;
+}
+
+.season-info {
+  font-size: 200%;
+  width: 50%;
+  position: absolute;
+  bottom: 2vh;
+  left: 2vw;
+}
+
+.event-info h1 {
+  position: absolute;
+  bottom: 10vh;
+  left: 1vw;
+  font-size: 180%;
+}
+
+.event-info button {
+  position: absolute;
+  bottom: 3vh;
+  left: 1vw;
 }
 
 .world-cup-section {
   position: relative;
-  background: url('./images/world-cup.jpg');
-  height: 40vh;
+  background: url("./images/world-cup.jpg");
+  height: 35vh;
   background-repeat: no-repeat;
   width: 80%;
   background-size: cover;
   background-position: center;
   backdrop-filter: blur;
   filter: brightness(60%);
-  transition: all .5s;
+  transition: all 0.5s;
   cursor: pointer;
 }
 
@@ -780,7 +796,7 @@ footer {
 
 .continental-cup-section {
   position: relative;
-  background: url('./images/continental-cup.png');
+  background: url("./images/continental-cup.png");
   height: 40vh;
   background-repeat: no-repeat;
   width: 80%;
@@ -788,7 +804,7 @@ footer {
   background-position: center;
   backdrop-filter: blur;
   filter: brightness(60%);
-  transition: all .5s;
+  transition: all 0.5s;
   cursor: pointer;
 }
 
@@ -798,7 +814,7 @@ footer {
 
 .fis-cup-section {
   position: relative;
-  background: url('./images/fis-cup.png');
+  background: url("./images/fis-cup.png");
   height: 40vh;
   background-repeat: no-repeat;
   width: 80%;
@@ -806,7 +822,7 @@ footer {
   background-position: center;
   backdrop-filter: blur;
   filter: brightness(60%);
-  transition: all .5s;
+  transition: all 0.5s;
   cursor: pointer;
 }
 
@@ -816,13 +832,13 @@ footer {
 
 .world-cup-competitions {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  height: 50vh;
+  flex-direction: column;
+  height: 110vh;
 }
 
-.next-competition {
-  background: url('./images/kuusamo.jpg');
+.competition-card {
   height: 40vh;
   width: 80%;
   background-size: cover;
@@ -832,7 +848,13 @@ footer {
   color: white;
 }
 
-.next-competition button {
+.event-info img {
+  width: 80vw;
+  height: 30vh;
+  object-fit: cover;
+}
+
+.competition-card button {
   background-color: #65a0ff;
   width: 15vw;
   height: 5vh;
@@ -873,5 +895,401 @@ footer {
 }
 
 .reporting-competitors-section button:hover {
-  background-color: #A1C4FD;
+  background-color: #a1c4fd;
+}
+
+.budget-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 200%;
+  padding: 5vh 0;
+}
+
+.balance-section {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 10vh;
+}
+
+.income {
+  width: 50%;
+  text-align: center;
+  border-right: solid black 1px;
+  color: #117800;
+  min-height: 100vh;
+}
+
+.expenditure {
+  width: 50%;
+  text-align: center;
+  border-left: solid black 1px;
+  height: 50vh;
+  color: #ff0000;
+  min-height: 100vh;
+}
+
+.results {
+  width: 100%;
+}
+
+.hill-card {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  gap: 3vw;
+}
+
+.hill-card img {
+  border-radius: 30px;
+  width: 40%;
+  margin: 5vh 0;
+}
+
+.hill-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.hills-section {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 5vh 0;
+}
+
+.hill-info button {
+  background-color: #65a0ff;
+  border-radius: 30px;
+  width: 20vw;
+  height: 6vh;
+  font-size: 180%;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.hill-info button:hover {
+  background-color: #a1c4fd;
+}
+
+@media screen and (max-width: 769px) {
+  .navbar nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    margin-top: -3vh;
+    background-color: rgba(0,0,0,0.7);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10vh;
+    font-size: 200%;
+    display: none;
+  }
+
+  .country-navbar nav a {
+    color: white;
+  }
+
+  .more {
+    display: block;
+    margin-right: 5vw;
+  }
+
+  .hero {
+    height: 50vh;
+    object-fit: cover;
+  }
+
+  .wrapper-tutorial-content img {
+    width: 50%;
+  }
+
+  .wrapper-tutorial-content {
+    font-size: 70%;
+    width: 85%; 
+    margin-top: -1vh;
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wrapper-tutorial-content p {
+    width: 100%;
+  }
+  .wrapper-tutorial-content button {
+    width: 100%;
+  }
+
+  .tutorial-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 65vh;
+  }
+
+  .tutorial-wrapper .logo-page {
+    font-size: 70%;
+  }
+
+  #star-1, #star-2, #star-3, #star-4 {
+    display: none;
+  }
+
+  .sports-events {
+    height: 30vh;
+  }
+
+  .world-cup-section {
+    width: 90%;
+    height: 20vh;
+    font-size: 50%;
+  }
+  
+  footer {
+    font-size: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  footer h1 {
+    color: rgb(184, 184, 184);
+  }
+
+  footer div h3 img {
+    width: 40%;
+  }
+
+  .competition-card img {
+    width: 80vw;
+    height: 20vh;
+    object-fit: cover;
+  }
+
+  .competition-card {
+    font-size: 80%;
+  }
+
+  .competition-card button {
+    width: 40%;
+  }
+
+  .event-info button {
+    position: absolute;
+    bottom: 1vh;
+    height: 4vh;
+  }
+
+  .event-info h1 {
+    position: absolute;
+    bottom: 6vh;
+    left: 2vw
+  }
+  .event-info {
+    width: 100%;
+  }
+
+  .world-cup-competitions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 70vh;
+  }
+
+  .hero-competitions {
+    height: 40vh;
+    font-size: 400%;
+  }
+
+  .hero-countries {
+    height: 40vh;
+    font-size: 350%;
+  }
+
+  .countries-data {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    height: 400vh;
+  }
+
+  .country-card {
+    width: 95%;
+    height: 20vh;
+    font-size: 120%;
+  }
+
+  .country-card button {
+    width: 70%;
+    height: 4vh;
+  }
+
+  .country-card img {
+    width: 50%;
+    object-fit: cover;
+  }
+
+  .country-change-navbar {
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+  }
+
+  .country-change-navbar button {
+    width: 80%;
+  }
+
+  .country-hero {
+    height: 50vh;
+  }
+
+  .country-hero img {
+    height: 50vh;
+  }
+
+  .balance-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5vh;
+  }
+
+  .income, .expenditure {
+    width: 100%;
+    border: none;
+  }
+  
+  .budget-section {
+    font-size: 150%;
+  }
+
+  .competitors {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .competitor-card {
+    width: 90%;
+  }
+
+  .competitor-card button {
+    width: 90%;
+  }
+
+  .competitor-card img {
+    object-fit: contain;
+  }
+
+  .hills-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hill-card {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    font-size: 50%;
+  }
+
+  .hill-card button {
+    width: 100%;
+  }
+
+  .hill-card img {
+    object-fit: cover;
+    width: 50%;
+  }
+
+  .ski-jumping-training {
+    font-size: 200%;
+    height: 20vh;
+    width: 90%;
+  }
+
+  .training-camp {
+    font-size: 200%;
+    height: 20vh;
+    width: 90%;
+  }
+
+  .training-section {
+    height: 50vh;
+  }
+
+  .hill-training-section .competitor-card {
+    font-size: 70%;
+  } 
+
+  .training-announcement {
+    width: 90%;
+    position: fixed;
+    left: 5vw;
+    height: 40vh;
+  }
+
+  .training-announcement button {
+    margin-top: 3vh;
+  }
+
+  .training-alert {
+    width: 90%;
+    position: fixed;
+    left: 5vw;
+    height: 40vh
+  }
+
+  .training-announcement button {
+    margin-top: 3vh;
+  }
+
+  .camp-info {
+    font-size: 60%;
+    width: 100%;
+  }
+
+  .camp-info button {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sports-events {
+    font-size: 90%;
+  }
+
+  .tutorial-wrapper {
+    height: 85vh;
+  }
+
+  .country-card {
+    height: 25vh;
+    font-size: 100%;
+  }
+
+  .countries-data {
+    height: 450vh;
+  }
+
+  .camp-section {
+    height: 200vh;
+    font-size: 80%;
+  }
+
+  .camp-section button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .tutorial-wrapper {
+    font-size: 80%;
+  }
 }

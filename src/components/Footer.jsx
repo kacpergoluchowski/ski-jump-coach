@@ -1,24 +1,28 @@
 import React from "react";
 import '../index.css';
-import LogoPage from "./LogoPage";
 import mailImage from '../images/envelope (2).png'
 
 export default function Footer(props) {
     return (
         <footer className={props.footerClassName}>
-            <div className="footer-div">
-                <div>
-                    <h1>MENU</h1>
-                    <p>Kadra</p>
-                    <p>Zawody</p>
-                    <p>Treningi</p>
-                </div>
-                <div>
-                    <h1>POMOC</h1>
-                    <p> <img src = {mailImage}/> skijumpcoach@gmail.com </p>
-                </div>
+            <div>
+                <h1> MENU </h1>
+                <h3> KADRY </h3>
+                <h3> SPONSORZY </h3>
+                <h3> SKOCZNIE </h3>
             </div>
-            <LogoPage/>
+            <div>
+                <h1> POMOC </h1>
+                <h3> FAQ </h3>
+                <h3> PORADNIK </h3>
+                <h3> <img src = {mailImage}/> skijumpcoach@gmail.com </h3>
+            </div>
+            <div>
+                <h1> ZAWODY </h1>
+                <h3> PUCHAR ŚWIATA </h3>
+                <h3> PUCHAR KONTYNENTALNY </h3>
+                <h3> FIS CUP </h3>
+            </div>
         </footer>
     )
 }
