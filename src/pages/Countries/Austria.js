@@ -25,7 +25,7 @@ const Austria = (props) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch(`http://127.0.0.1:3737/getFlag`, {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}getFlag`, {
                     method: "POST",
                     body: JSON.stringify({ query: props.country }),
                     headers: {
@@ -49,7 +49,7 @@ const Austria = (props) => {
 
     useEffect(() => {
         async function getBudget() {
-            const response = await fetch('http://127.0.0.1:3737/getBudget', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}getBudget`, {
                 method: "POST",
                 body: JSON.stringify({ country: props.country }),
                 headers: {
@@ -94,7 +94,7 @@ const Austria = (props) => {
 
     useEffect(() => {
         async function fetchHills() {
-            const response = await fetch('http://127.0.0.1:3737/getHills', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}getHills`, {
                 method: "POST",
                 body: JSON.stringify({country: props.country}),
                 headers: {

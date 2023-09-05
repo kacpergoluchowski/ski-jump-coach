@@ -41,7 +41,7 @@ function training(name, surname, country, skill) {
     const experience = Math.floor(generateDistance(skill));
 
     async function sendResultToBackend() {
-        fetch(`http://127.0.0.1:3737/sendCompetitorToTraining`, {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}sendCompetitorToTraining`, {
             method: "POST",
             body: JSON.stringify({country: country, name:name, surname:surname, experience: experience}),
             headers: {

@@ -87,7 +87,7 @@ function RenderCompetitors(props) {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch(`http://127.0.0.1:3737/getCompetitors`, {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}getCompetitors`, {
                     method: "POST",
                     body: JSON.stringify({ country: props.country }),
                     headers: {
@@ -155,7 +155,7 @@ function CompetitorCard(props) {
 async function sendCompetitorToCamp(name, surname, place, country, date, skill) {
     const experience = generateExperience(skill);
 
-    await fetch(`http://127.0.0.1:3737/sendCompetitorToCamp`, {
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}sendCompetitorToCamp`, {
         method: "POST",
         body: JSON.stringify({name:name, surname: surname, place: place, country: country, date: date, experience: experience}),
         headers: {
